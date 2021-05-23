@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{1a00beda-c456-4040-bc60-d5e79d541dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utilites">
+      <UniqueIdentifier>{54551b5b-5ebd-490d-a1b6-a28de7ae1b18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\shellcode_patch_helper">
+      <UniqueIdentifier>{01a54908-cbdd-4d7e-a322-3e7c34c215a1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\dllmain.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utilites\utilites.cpp">
+      <Filter>src\utilites</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\utilites\utilites.h">
+      <Filter>src\utilites</Filter>
+    </ClInclude>
+    <ClInclude Include="src\includes.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shellcode_patch_helper\shellcode_patch_helper.h">
+      <Filter>src\shellcode_patch_helper</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
