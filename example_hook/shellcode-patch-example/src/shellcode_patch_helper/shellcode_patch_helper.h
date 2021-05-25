@@ -1,3 +1,11 @@
+#ifdef _WIN64
+#define DWORD_OF_BITNESS DWORD64
+#define PTRMAXVAL ((PVOID)0x000F000000000000)
+#elif _WIN32
+#define DWORD_OF_BITNESS DWORD
+#define PTRMAXVAL ((PVOID)0xFFF00000)
+#endif
+
 class CShellCodeHelper
 {
 private:
@@ -38,8 +46,15 @@ public:
 		}
 		else
 		{
-			DWORD_OF_BITNESS allocation_address = (DWORD_OF_BITNESS)address - 0x10000000;
+			DWORD_OF_BITNESS search_offset = 0x10000000;
+			DWORD_OF_BITNESS allocation_address = (DWORD_OF_BITNESS)address - search_offset;
 			DWORD_OF_BITNESS end = (DWORD_OF_BITNESS)address;
+
+			if ((DWORD_OF_BITNESS)address < search_offset)
+			{
+				search_offset = (DWORD_OF_BITNESS)address;
+				allocation_address = (DWORD_OF_BITNESS)address - search_offset;
+			}
 
 			MEMORY_BASIC_INFORMATION mbi{};
 			ZeroMemory(&mbi, sizeof(MEMORY_BASIC_INFORMATION));
@@ -77,7 +92,7 @@ public:
 #ifdef _WIN64
 		printf("[+]%s. Shellcode allocated page: 0x%I64X\n", __FUNCTION__, (DWORD_OF_BITNESS)m_shellcode_allocated_memory);
 #else
-		printf("[+]%s. Shellcode allocated page: 0x%I32X\n", __FUNCTION__, (DWORD_OF_BITNESS)shellcode_addr);
+		printf("[+]%s. Shellcode allocated page: 0x%I32X\n", __FUNCTION__, (DWORD_OF_BITNESS)m_shellcode_allocated_memory);
 #endif // _WIN64
 
 		status_ok = true;
@@ -137,3 +152,4 @@ public:
 		return m_shellcode_allocated_memory;
 	}
 };
+
