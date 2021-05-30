@@ -112,7 +112,7 @@ public:
 		memcpy(m_shellcode_allocated_memory, shellcode, sizeof_shellcode);
 
 		memset((void*)((DWORD_OF_BITNESS)m_shellcode_allocated_memory + sizeof_shellcode), 0xe9, 1);
-		DWORD relative_addr_jmp_back = (((DWORD)m_start_address - (DWORD)m_shellcode_allocated_memory) - (DWORD)(sizeof_shellcode - 1));
+		DWORD relative_addr_jmp_back = (((DWORD)m_start_address - (DWORD)m_shellcode_allocated_memory) - (DWORD)(sizeof_shellcode) + (DWORD)(replace_byte_instruction_length - 5));
 		memcpy((void*)((DWORD_OF_BITNESS)m_shellcode_allocated_memory + sizeof_shellcode + 1), &relative_addr_jmp_back, 4);
 
 		m_jmp_bytes = new BYTE[replace_byte_instruction_length];
@@ -152,4 +152,3 @@ public:
 		return m_shellcode_allocated_memory;
 	}
 };
-
